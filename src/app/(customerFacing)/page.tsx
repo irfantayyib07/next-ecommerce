@@ -7,25 +7,41 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
-const getMostPopularProducts = cache(
- () => {
-  return db.product.findMany({
-   where: { isAvailableForPurchase: true },
-   orderBy: { orders: { _count: "desc" } },
-   take: 6,
-  });
- },
- ["/", "getMostPopularProducts"],
- { revalidate: 60 * 60 * 24 },
-);
+// const getMostPopularProducts = cache(
+//  () => {
+//   return db.product.findMany({
+//    where: { isAvailableForPurchase: true },
+//    orderBy: { orders: { _count: "desc" } },
+//    take: 6,
+//   });
+//  },
+//  ["/", "getMostPopularProducts"],
+//  { revalidate: 60 * 60 * 24 },
+// );
 
-const getNewestProducts = cache(() => {
+// const getNewestProducts = cache(() => {
+//  return db.product.findMany({
+//   where: { isAvailableForPurchase: true },
+//   orderBy: { createdAt: "desc" },
+//   take: 6,
+//  });
+// }, ["/", "getNewestProducts"]);
+
+const getMostPopularProducts = () => {
+ return db.product.findMany({
+  where: { isAvailableForPurchase: true },
+  orderBy: { orders: { _count: "desc" } },
+  take: 6,
+ });
+};
+
+const getNewestProducts = () => {
  return db.product.findMany({
   where: { isAvailableForPurchase: true },
   orderBy: { createdAt: "desc" },
   take: 6,
  });
-}, ["/", "getNewestProducts"]);
+};
 
 export default function HomePage() {
  return (

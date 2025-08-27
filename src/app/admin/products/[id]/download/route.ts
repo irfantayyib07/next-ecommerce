@@ -15,7 +15,7 @@ export async function GET(req: NextRequest, { params: { id } }: { params: { id: 
  const file = await fs.readFile(product.filePath);
  const extension = product.filePath.split(".").pop();
 
- return new NextResponse(file, {
+ return new NextResponse(new Uint8Array(file), {
   headers: {
    "Content-Disposition": `attachment; filename="${product.name}.${extension}"`,
    "Content-Length": size.toString(),

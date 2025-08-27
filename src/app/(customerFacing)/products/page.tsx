@@ -3,12 +3,19 @@ import db from "@/db/db";
 import { cache } from "@/lib/cache";
 import { Suspense } from "react";
 
-const getProducts = cache(() => {
+// const getProducts = cache(() => {
+//  return db.product.findMany({
+//   where: { isAvailableForPurchase: true },
+//   orderBy: { name: "asc" },
+//  });
+// }, ["/products", "getProducts"]);
+
+const getProducts = () => {
  return db.product.findMany({
   where: { isAvailableForPurchase: true },
   orderBy: { name: "asc" },
  });
-}, ["/products", "getProducts"]);
+};
 
 export default function ProductsPage() {
  return (
